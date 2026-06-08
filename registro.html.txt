@@ -3,14 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NEXOQR - Registro</title>
+    <title>CONECTAQR - Registro</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
 </head>
 <body class="bg-slate-900 text-slate-100 font-sans min-h-screen flex items-center justify-center p-4">
     <div class="w-full max-w-lg bg-slate-800 rounded-2xl shadow-2xl border border-slate-700 p-6 md:p-8">
         <div class="text-center mb-8">
-            <h1 class="text-3xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-emerald-400 tracking-tight">NEXOQR</h1>
+            <h1 class="text-3xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-emerald-400 tracking-tight">CONECTAQR</h1>
             <p class="text-slate-400 text-sm mt-2">Crea tu Tarjeta de Presentación Digital en segundos</p>
         </div>
         <form id="form-registro" class="space-y-5">
@@ -54,7 +54,7 @@
                 </div>
             </div>
             <button type="submit" id="btn-submit" class="w-full mt-4 bg-gradient-to-r from-blue-500 to-emerald-500 hover:from-blue-600 hover:to-emerald-600 text-white font-bold py-4 rounded-xl transition shadow-lg uppercase text-sm tracking-wide">
-                Generar mi NEXOQR
+                Generar mi CONECTAQR
             </button>
         </form>
     </div>
@@ -80,11 +80,11 @@
 
             try {
                 await fetch(apiURL, { method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(datos) });
-                // Redirigimos al usuario a la página donde se muestra su QR generado
-                window.location.href = `index.html?id=${datos.telefono}&showQR=true`;
+                // Redirección corregida al archivo raíz index con parámetros limpios
+                window.location.href = `./?id=${datos.telefono}&showQR=true`;
             } catch (error) {
                 alert("Error al conectar con la base de datos.");
-                btn.innerText = "GENERAR MI NEXOQR";
+                btn.innerText = "GENERAR MI CONECTAQR";
                 btn.disabled = false;
             }
         });
