@@ -130,30 +130,43 @@
                     btnWeb2.classList.remove('hidden');
                 }
 
-                // Renderizador del Bloque QR con descarga de imagen física
+// Renderizador del Bloque QR con descarga de imagen física con fondo blanco sólido
                 if (showQR === "true") {
                     document.getElementById('qr-container').classList.remove('hidden');
                     const urlPerfilPublico = window.location.href.split('&')[0];
                     
-                   const qrcodeEl = document.getElementById("qrcode");
+                    const qrcodeEl = document.getElementById("qrcode");
+                    qrcodeEl.innerHTML = ""; // Limpiamos duplicados por si acaso
+                    
                     new QRCode(qrcodeEl, {
                         text: urlPerfilPublico,
-                        width: 180,
-                        height: 180,
-                        colorDark : "#0f172a", // Color del código
-                        colorLight : "#ffffff", // Fondo blanco explícito
-                        correctLevel : QRCode.CorrectLevel.H // Máximo nivel de resistencia y lectura
+                        width: 200,
+                        height: 200,
+                        colorDark : "#0f172a",
+                        colorLight : "#ffffff", // Fondo blanco explícito en la matriz
+                        correctLevel : QRCode.CorrectLevel.H
                     });
 
-                    // Agregamos un pequeño margen visual blanco en la pantalla para asegurar simetría
-                    qrcodeEl.classList.add('p-2', 'bg-white', 'rounded-lg');
+                    // Agregamos un pequeño margen visual blanco en la pantalla
+                    qrcodeEl.classList.add('p-3', 'bg-white', 'rounded-xl', 'shadow-md');
+
+                    // Función corregida: Extrae el Canvas para asegurar que la descarga SÍ incluya el fondo blanco
                     document.getElementById('btn-download-qr').addEventListener('click', function() {
-                        const img = qrcodeEl.querySelector('img');
-                        if (img) {
+                        const canvas = qrcodeEl.querySelector('canvas');
+                        if (canvas) {
                             const link = document.createElement('a');
                             link.download = `ConectaQR-${usuario.nombre.replace(/\s+/g, '-')}.png`;
-                            link.href = img.src;
+                            link.href = canvas.toDataURL("image/png");
                             link.click();
+                        } else {
+                            // Respaldo por si el navegador renderiza directo en etiqueta img
+                            const img = qrcodeEl.querySelector('img');
+                            if (img) {
+                                const link = document.createElement('a');
+                                link.download = `ConectaQR-${usuario.nombre.replace(/\s+/g, '-')}.png`;
+                                link.href = img.src;
+                                link.click();
+                            }
                         }
                     });
                 }
