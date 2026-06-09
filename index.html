@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NEXOQR - Perfil</title>
+    <title>CONECTAQR - Perfil</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
@@ -14,7 +14,7 @@
         
         <div id="profile-section">
             <div class="flex flex-col items-center mb-6">
-                <div class="w-24 h-24 bg-gradient-to-tr from-blue-500 to-emerald-400 rounded-full flex items-center justify-center mb-4 shadow-lg overflow-hidden">
+                <div id="avatar-container" class="w-24 h-24 bg-gradient-to-tr from-blue-500 to-emerald-400 rounded-full flex items-center justify-center mb-4 shadow-lg overflow-hidden text-white text-3xl font-bold uppercase tracking-wider">
                     <i id="avatar-icon" data-lucide="user" class="w-12 h-12 text-white"></i>
                 </div>
                 <h1 id="user-name" class="text-2xl font-bold text-white tracking-tight">Cargando...</h1>
@@ -23,50 +23,69 @@
 
             <div class="space-y-4 text-left">
                 <a id="btn-whatsapp" href="#" target="_blank" class="flex items-center justify-between p-4 bg-emerald-600 hover:bg-emerald-500 rounded-xl font-semibold text-white transition shadow-md">
-                    <div class="flex items-center space-x-3"><i data-lucide="message-circle" class="w-5 h-5"></i><span>Escribir al WhatsApp</span></div>
+                    <div class="flex items-center space-x-3">
+                        <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946C.06 5.348 5.397.01 12.008.01c3.202.001 6.212 1.246 8.477 3.514 2.266 2.268 3.507 5.28 3.505 8.484-.004 6.657-5.34 11.997-11.953 11.997-2.005-.001-3.973-.502-5.713-1.457L0 24zm6.59-4.846c1.6.95 3.188 1.449 4.625 1.451 5.403.002 9.803-4.394 9.806-9.799.002-2.618-1.01-5.078-2.86-6.93C16.364 2.022 13.91 1.01 11.3 1.01c-5.4.0-9.801 4.398-9.804 9.802-.001 1.705.474 3.37 1.378 4.815l-.997 3.637 3.725-.976zm11.334-4.733c-.26-.13-1.536-.758-1.772-.843-.236-.086-.407-.13-.578.13-.171.259-.66.843-.81 1.013-.149.17-.3.19-.56.062-.26-.13-1.097-.404-2.09-1.285-.772-.689-1.293-1.54-1.444-1.796-.15-.256-.016-.394.113-.523.117-.116.26-.304.39-.456.13-.153.172-.257.26-.429.087-.171.043-.321-.021-.45-.064-.13-.578-1.393-.792-1.908-.21-.506-.44-.437-.6-.445-.16-.007-.344-.008-.528-.008-.184 0-.485.07-.74.356-.255.284-.976.954-.976 2.327 0 1.373 1 2.694 1.14 2.884.14.19 1.967 3.004 4.767 4.211.665.287 1.186.459 1.594.589.668.213 1.277.183 1.757.11.535-.08 1.536-.627 1.75-1.233.214-.607.214-1.126.15-1.233-.064-.108-.236-.17-.497-.3z"/></svg>
+                        <span>Escribir al WhatsApp</span>
+                    </div>
                     <i data-lucide="arrow-right" class="w-4 h-4 opacity-70"></i>
                 </a>
+                
                 <a id="btn-linkedin" href="#" target="_blank" class="flex items-center justify-between p-4 bg-blue-700 hover:bg-blue-600 rounded-xl font-semibold text-white transition shadow-md hidden">
-                    <div class="flex items-center space-x-3"><i data-lucide="linkedin" class="w-5 h-5"></i><span>Ver Perfil de LinkedIn</span></div>
+                    <div class="flex items-center space-x-3">
+                        <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+                        <span>Ver Perfil de LinkedIn</span>
+                    </div>
                     <i data-lucide="arrow-right" class="w-4 h-4 opacity-70"></i>
                 </a>
-                <a id="btn-email" href="#" class="flex items-center justify-between p-4 bg-slate-700 hover:bg-slate-600 rounded-xl font-semibold text-white transition border border-slate-600 shadow-md hidden">
-                    <div class="flex items-center space-x-3"><i data-lucide="mail" class="w-5 h-5"></i><span>Enviar Email</span></div>
-                    <i data-lucide="arrow-right" class="w-4 h-4 opacity-70"></i>
-                </a>
+
                 <a id="btn-web1" href="#" target="_blank" class="flex items-center justify-between p-4 bg-slate-700 hover:bg-slate-600 rounded-xl font-semibold text-white transition border border-slate-600 shadow-md hidden">
-                    <div class="flex items-center space-x-3"><i data-lucide="globe" class="w-5 h-5"></i><span>Visitar Sitio Web</span></div>
+                    <div class="flex items-center space-x-3"><i id="icon-web1" data-lucide="globe" class="w-5 h-5"></i><span id="txt-web1">Visitar sitio</span></div>
                     <i data-lucide="arrow-right" class="w-4 h-4 opacity-70"></i>
                 </a>
                 <a id="btn-web2" href="#" target="_blank" class="flex items-center justify-between p-4 bg-slate-700 hover:bg-slate-600 rounded-xl font-semibold text-white transition border border-slate-600 shadow-md hidden">
-                    <div class="flex items-center space-x-3"><i data-lucide="globe-2" class="w-5 h-5"></i><span>Visitar Sitio Web 2</span></div>
+                    <div class="flex items-center space-x-3"><i id="icon-web2" data-lucide="globe-2" class="w-5 h-5"></i><span id="txt-web2">Visitar sitio 2</span></div>
                     <i data-lucide="arrow-right" class="w-4 h-4 opacity-70"></i>
                 </a>
             </div>
         </div>
 
-        <div id="qr-section" class="mt-8 pt-6 border-t border-slate-700/50 hidden flex flex-col items-center">
-            <h2 class="text-md font-bold text-emerald-400 mb-4 uppercase tracking-wider">¡Tu NEXOQR está listo!</h2>
+        <div id="qr-container" class="mt-8 pt-6 border-t border-slate-700/50 hidden flex flex-col items-center">
             <div id="qrcode" class="bg-white p-3 rounded-xl shadow-inner mb-4"></div>
-            <p class="text-xs text-slate-400 px-4">Guarda este QR o comparte el link actual para que la gente acceda a tu perfil.</p>
+            
+            <button id="btn-download-qr" class="flex items-center space-x-2 px-5 py-2.5 bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-600 hover:to-teal-700 text-white font-bold text-sm rounded-xl transition shadow-lg uppercase tracking-wide">
+                <i data-lucide="download" class="w-4 h-4"></i>
+                <span>Descargar QR</span>
+            </button>
+            <p class="text-[11px] text-slate-500 mt-3 px-4">Guarda la imagen para imprimirla en tus tarjetas físicas o compartirla en tus pantallas.</p>
         </div>
 
         <div class="mt-8 pt-4 border-t border-slate-700/50">
-            <p class="text-xs text-slate-500 tracking-wider uppercase font-semibold">Potenciado por NEXOQR</p>
+            <p class="text-[11px] text-slate-500 tracking-wider uppercase font-semibold">© 2026 ConectaQR desarrollado por SMF next</p>
         </div>
     </div>
 
     <script>
         const apiURL = "https://script.google.com/macros/s/AKfycbyMVMlpzn7dG6C_s2DEKz7WsD4-Y7kprvU6FWFm-WxCChWk0xKHMld3QTyZcRsR44nn/exec";
         
+        // Función inteligente para detectar el nombre comercial de cualquier red social ingresada
+        function detectarTextoEnlace(url) {
+            const lower = url.toLowerCase();
+            if (lower.includes('facebook.com')) return "Ver perfil de Facebook";
+            if (lower.includes('instagram.com')) return "Ver perfil de Instagram";
+            if (lower.includes('tiktok.com')) return "Ver perfil de TikTok";
+            if (lower.includes('pinterest.com')) return "Ver perfil de Pinterest";
+            if (lower.includes('youtube.com')) return "Ver canal de YouTube";
+            if (lower.includes('twitter.com') || lower.includes('x.com')) return "Ver perfil de X (Twitter)";
+            return "Visitar sitio";
+        }
+
         async function cargarPerfil() {
             const urlParams = new URLSearchParams(window.location.search);
             const userId = urlParams.get('id');
             const showQR = urlParams.get('showQR');
 
             if (!userId) {
-                // Si alguien entra sin ID, lo mandamos al registro de forma automática
-                window.location.href = "registro.html";
+                window.location.href = "registro";
                 return;
             }
 
@@ -79,54 +98,61 @@
                     return;
                 }
 
-                // Lógica de Redirección Automática si SÓLO hay teléfono ingresado
-                const hasPhone = !!usuario.telefono;
-                const hasEmail = !!usuario.email;
-                const hasLinkedin = !!usuario.linkedin;
-                const hasWeb1 = !!usuario.web1;
-                const hasWeb2 = !!usuario.web2;
+                // Generación de Iniciales Estéticas para evitar el error de imágenes rotas de WhatsApp/LinkedIn
+                const contenedorAvatar = document.getElementById('avatar-container');
+                const iniciales = usuario.nombre.split(' ').map(n => n[0]).slice(0,2).join('');
+                contenedorAvatar.innerText = iniciales;
 
-                const txtWA = encodeURIComponent("Hola, escaneé tu NEXOQR. Me gustaría guardar tu contacto.");
-                const waLink = `https://wa.me/${usuario.telefono}?text=${txtWA}`;
-
-                if (hasPhone && !hasEmail && !hasLinkedin && !hasWeb1 && !hasWeb2 && !showQR) {
-                    window.location.href = waLink;
-                    return;
-                }
-
-                // Renderizar datos en la Landing
                 document.getElementById('user-name').innerText = usuario.nombre;
                 document.getElementById('user-desc').innerText = usuario.descripcion;
-                document.getElementById('btn-whatsapp').href = waLink;
 
-                if (hasLinkedin) {
+                const txtWA = encodeURIComponent("Hola, escaneé tu ConectaQR. Me gustaría guardar tu contacto.");
+                document.getElementById('btn-whatsapp').href = `https://wa.me/${usuario.telefono}?text=${txtWA}`;
+
+                if (usuario.linkedin) {
                     document.getElementById('btn-linkedin').href = usuario.linkedin;
                     document.getElementById('btn-linkedin').classList.remove('hidden');
                 }
-                if (hasEmail) {
-                    document.getElementById('btn-email').href = `mailto:${usuario.email}`;
-                    document.getElementById('btn-email').classList.remove('hidden');
-                }
-                if (hasWeb1) {
-                    document.getElementById('btn-web1').href = usuario.web1;
-                    document.getElementById('btn-web1').classList.remove('hidden');
-                }
-                if (hasWeb2) {
-                    document.getElementById('btn-web2').href = usuario.web2;
-                    document.getElementById('btn-web2').classList.remove('hidden');
+
+                // Lógica de Reconocimiento de Redes para Página Web 1
+                if (usuario.web1) {
+                    const btnWeb1 = document.getElementById('btn-web1');
+                    btnWeb1.href = usuario.web1;
+                    document.getElementById('txt-web1').innerText = detectarTextoEnlace(usuario.web1);
+                    btnWeb1.classList.remove('hidden');
                 }
 
-                // Lógica del nuevo requisito: Mostrar sección de QR si corresponde
+                // Lógica de Reconocimiento de Redes para Página Web 2
+                if (usuario.web2) {
+                    const btnWeb2 = document.getElementById('btn-web2');
+                    btnWeb2.href = usuario.web2;
+                    document.getElementById('txt-web2').innerText = detectarTextoEnlace(usuario.web2);
+                    btnWeb2.classList.remove('hidden');
+                }
+
+                // Renderizador del Bloque QR con descarga de imagen física
                 if (showQR === "true") {
-                    document.getElementById('qr-section').classList.remove('hidden');
-                    // Generamos el código QR dinámico apuntando a esta misma URL de perfil
-                    const urlPerfilPublico = window.location.href.split('&')[0]; // Limpiamos el string del parámetro showQR
-                    new QRCode(document.getElementById("qrcode"), {
+                    document.getElementById('qr-container').classList.remove('hidden');
+                    const urlPerfilPublico = window.location.href.split('&')[0];
+                    
+                    const qrcodeEl = document.getElementById("qrcode");
+                    new QRCode(qrcodeEl, {
                         text: urlPerfilPublico,
                         width: 180,
                         height: 180,
                         colorDark : "#0f172a",
                         colorLight : "#ffffff"
+                    });
+
+                    // Función nativa para capturar el QR generado y forzar la descarga de la imagen
+                    document.getElementById('btn-download-qr').addEventListener('click', function() {
+                        const img = qrcodeEl.querySelector('img');
+                        if (img) {
+                            const link = document.createElement('a');
+                            link.download = `ConectaQR-${usuario.nombre.replace(/\s+/g, '-')}.png`;
+                            link.href = img.src;
+                            link.click();
+                        }
                     });
                 }
 
@@ -134,7 +160,7 @@
                 lucide.createIcons();
 
             } catch (error) {
-                document.body.innerHTML = `<div class="text-center text-red-400 font-bold">Error de conexión con el servidor de datos.</div>`;
+                document.body.innerHTML = `<div class="text-center text-red-400 font-bold">Error de conexión con el servidor.</div>`;
             }
         }
 
