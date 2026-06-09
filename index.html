@@ -50,7 +50,7 @@
         </div>
 
         <div id="qr-container" class="mt-8 pt-6 border-t border-slate-700/50 hidden flex flex-col items-center">
-            <div id="qrcode" class="bg-white p-3 rounded-xl shadow-inner mb-4"></div>
+            <div id="qrcode" class="p-3 bg-white rounded-xl shadow-md inline-block mb-4"></div>
             
             <button id="btn-download-qr" class="flex items-center space-x-2 px-5 py-2.5 bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-600 hover:to-teal-700 text-white font-bold text-sm rounded-xl transition shadow-lg uppercase tracking-wide">
                 <i data-lucide="download" class="w-4 h-4"></i>
@@ -67,7 +67,6 @@
     <script>
         const apiURL = "https://script.google.com/macros/s/AKfycbyMVMlpzn7dG6C_s2DEKz7WsD4-Y7kprvU6FWFm-WxCChWk0xKHMld3QTyZcRsR44nn/exec";
         
-        // Función inteligente para detectar el nombre comercial de cualquier red social ingresada
         function detectarTextoEnlace(url) {
             const lower = url.toLowerCase();
             if (lower.includes('facebook.com')) return "Ver perfil de Facebook";
@@ -98,7 +97,6 @@
                     return;
                 }
 
-                // Generación de Iniciales Estéticas para evitar el error de imágenes rotas de WhatsApp/LinkedIn
                 const contenedorAvatar = document.getElementById('avatar-container');
                 const iniciales = usuario.nombre.split(' ').map(n => n[0]).slice(0,2).join('');
                 contenedorAvatar.innerText = iniciales;
@@ -114,7 +112,6 @@
                     document.getElementById('btn-linkedin').classList.remove('hidden');
                 }
 
-                // Lógica de Reconocimiento de Redes para Página Web 1
                 if (usuario.web1) {
                     const btnWeb1 = document.getElementById('btn-web1');
                     btnWeb1.href = usuario.web1;
@@ -122,7 +119,6 @@
                     btnWeb1.classList.remove('hidden');
                 }
 
-                // Lógica de Reconocimiento de Redes para Página Web 2
                 if (usuario.web2) {
                     const btnWeb2 = document.getElementById('btn-web2');
                     btnWeb2.href = usuario.web2;
@@ -130,43 +126,48 @@
                     btnWeb2.classList.remove('hidden');
                 }
 
-// Renderizador del Bloque QR con descarga de imagen física con fondo blanco sólido
+                // Generación de QR con forzado estricto de fondo blanco para el archivo descargable
                 if (showQR === "true") {
                     document.getElementById('qr-container').classList.remove('hidden');
                     const urlPerfilPublico = window.location.href.split('&')[0];
                     
                     const qrcodeEl = document.getElementById("qrcode");
-                    qrcodeEl.innerHTML = ""; // Limpiamos duplicados por si acaso
+                    qrcodeEl.innerHTML = ""; 
                     
-                    new QRCode(qrcodeEl, {
+                    // Inicializamos QRCode obligando a renderizar fondo blanco nativo
+                    const qrInstancia = new QRCode(qrcodeEl, {
                         text: urlPerfilPublico,
                         width: 200,
                         height: 200,
                         colorDark : "#0f172a",
-                        colorLight : "#ffffff", // Fondo blanco explícito en la matriz
+                        colorLight : "#ffffff", 
                         correctLevel : QRCode.CorrectLevel.H
                     });
 
-                    // Agregamos un pequeño margen visual blanco en la pantalla
-                    qrcodeEl.classList.add('p-3', 'bg-white', 'rounded-xl', 'shadow-md');
-
-                    // Función corregida: Extrae el Canvas para asegurar que la descarga SÍ incluya el fondo blanco
+                    // FUNCIÓN MAESTRA DE DESCARGA: Re-dibuja en un canvas virtual con márgenes blancos protectores
                     document.getElementById('btn-download-qr').addEventListener('click', function() {
-                        const canvas = qrcodeEl.querySelector('canvas');
-                        if (canvas) {
+                        const canvasOrigen = qrcodeEl.querySelector('canvas');
+                        if (canvasOrigen) {
+                            // Creación de un canvas secundario para inyectar el marco perimetral blanco
+                            const canvasDestino = document.createElement('canvas');
+                            const ctx = canvasDestino.getContext('2d');
+                            
+                            // Definimos un tamaño mayor para el archivo final (240x240) incluyendo márgenes de seguridad
+                            canvasDestino.width = 240;
+                            canvasDestino.height = 240;
+                            
+                            // Pintamos un fondo blanco sólido absoluto de base
+                            ctx.fillStyle = "#ffffff";
+                            ctx.fillRect(0, 0, canvasDestino.width, canvasDestino.height);
+                            
+                            // Estampamos el código QR centrado encima de la base blanca (dejando 20px de borde por lado)
+                            ctx.drawImage(canvasOrigen, 20, 20);
+                            
+                            // Gatillamos la descarga del archivo final limpio y blindado
                             const link = document.createElement('a');
                             link.download = `ConectaQR-${usuario.nombre.replace(/\s+/g, '-')}.png`;
-                            link.href = canvas.toDataURL("image/png");
+                            link.href = canvasDestino.toDataURL("image/png");
                             link.click();
-                        } else {
-                            // Respaldo por si el navegador renderiza directo en etiqueta img
-                            const img = qrcodeEl.querySelector('img');
-                            if (img) {
-                                const link = document.createElement('a');
-                                link.download = `ConectaQR-${usuario.nombre.replace(/\s+/g, '-')}.png`;
-                                link.href = img.src;
-                                link.click();
-                            }
                         }
                     });
                 }
