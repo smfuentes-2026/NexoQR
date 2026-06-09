@@ -135,16 +135,18 @@
                     document.getElementById('qr-container').classList.remove('hidden');
                     const urlPerfilPublico = window.location.href.split('&')[0];
                     
-                    const qrcodeEl = document.getElementById("qrcode");
+                   const qrcodeEl = document.getElementById("qrcode");
                     new QRCode(qrcodeEl, {
                         text: urlPerfilPublico,
                         width: 180,
                         height: 180,
-                        colorDark : "#0f172a",
-                        colorLight : "#ffffff"
+                        colorDark : "#0f172a", // Color del código
+                        colorLight : "#ffffff", // Fondo blanco explícito
+                        correctLevel : QRCode.CorrectLevel.H // Máximo nivel de resistencia y lectura
                     });
 
-                    // Función nativa para capturar el QR generado y forzar la descarga de la imagen
+                    // Agregamos un pequeño margen visual blanco en la pantalla para asegurar simetría
+                    qrcodeEl.classList.add('p-2', 'bg-white', 'rounded-lg');
                     document.getElementById('btn-download-qr').addEventListener('click', function() {
                         const img = qrcodeEl.querySelector('img');
                         if (img) {
